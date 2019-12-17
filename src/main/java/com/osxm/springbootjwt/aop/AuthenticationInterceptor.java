@@ -18,6 +18,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import com.osxm.springbootjwt.service.UserService;
 import com.osxm.springbootjwt.util.JWTUtil;
 import com.osxm.springbootjwt.util.ResponseHelper;
+import com.osxm.springbootjwt.util.ResponseUtil;
 
 /**
  * @ClassName: AuthenticationInterceptor
@@ -48,7 +49,7 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
 			}
 		}
 		if (errMsg != null) {
-			ResponseHelper.authFailure(errMsg);
+			ResponseUtil.returnJsonMessage(httpServletResponse, ResponseHelper.authFailure(errMsg));
 			return false;
 		}
 		return true;

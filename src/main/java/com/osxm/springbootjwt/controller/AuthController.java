@@ -21,6 +21,9 @@ import com.osxm.springbootjwt.util.JWTUtil;
 import com.osxm.springbootjwt.util.MD5Util;
 import com.osxm.springbootjwt.util.ResponseHelper;
 
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+
 /**
  * @ClassName: AuthController
  * @Description: TODO
@@ -33,6 +36,10 @@ public class AuthController {
 	private UserService userService;
 
 	@PostMapping("/login")
+	@ApiImplicitParams({
+        @ApiImplicitParam(name = "mess", value = "博客内容",
+                required = false, paramType = "query", dataType = "String")
+    })
 	public ResponseModel<String> login(@RequestBody UserModel userModel) {
 		User userFromDb = userService.get(userModel.getId());
 		ResponseModel<String> responseModel = null;

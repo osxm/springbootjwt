@@ -8,6 +8,9 @@
  */
 package com.osxm.springbootjwt.config;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -24,12 +27,13 @@ import com.osxm.springbootjwt.aop.AuthenticationInterceptor;
 public class InterceptorConfig implements WebMvcConfigurer {
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
-		registry.addInterceptor(authInterceptor()).addPathPatterns("/users");
-		//registry.addInterceptor(authInterceptor()).excludePathPatterns("/login");
-		//registry.addInterceptor(authInterceptor()).excludePathPatterns("/swagger-ui.html");
-		//registry.addInterceptor(authInterceptor()).excludePathPatterns("/swagger-resources/**");
-		//registry.addInterceptor(authInterceptor()).excludePathPatterns("/v2/api-docs");
-		//registry.addInterceptor(authInterceptor()).excludePathPatterns("/webjars/springfox-swagger-ui/**");
+		List<String> excludePathPatterns = new ArrayList<String>();
+		excludePathPatterns.add("/login");
+		excludePathPatterns.add("/swagger-ui.html");
+		excludePathPatterns.add("/swagger-resources/**");
+		excludePathPatterns.add("/v2/api-docs");
+		excludePathPatterns.add("/webjars/springfox-swagger-ui/**");
+		registry.addInterceptor(authInterceptor()).addPathPatterns("/*").excludePathPatterns(excludePathPatterns);
 	}
 
 	@Bean
