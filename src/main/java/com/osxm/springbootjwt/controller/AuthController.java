@@ -23,6 +23,7 @@ import com.osxm.springbootjwt.util.ResponseHelper;
 
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
+import springfox.documentation.annotations.ApiIgnore;
 
 /**
  * @ClassName: AuthController
@@ -38,9 +39,10 @@ public class AuthController {
 	@PostMapping("/login")
 	@ApiImplicitParams({
         @ApiImplicitParam(name = "mess", value = "博客内容",
-                required = false, paramType = "query", dataType = "String")
+                required = true, paramType = "query", dataType = "String"),        @ApiImplicitParam(name = "mess", value = "博客内容",
+                required = true, paramType = "query", dataType = "String")
     })
-	public ResponseModel<String> login(@RequestBody UserModel userModel) {
+	public ResponseModel<String> login(@ApiIgnore  @RequestBody UserModel userModel) {
 		User userFromDb = userService.get(userModel.getId());
 		ResponseModel<String> responseModel = null;
 		if (userFromDb != null) {

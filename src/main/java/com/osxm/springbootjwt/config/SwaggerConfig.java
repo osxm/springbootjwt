@@ -14,6 +14,7 @@ import java.util.List;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import springfox.documentation.annotations.ApiIgnore;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.ParameterBuilder;
 import springfox.documentation.builders.PathSelectors;
@@ -46,7 +47,7 @@ public class SwaggerConfig {
 				apiInfo(swaggerApiInfo()) // 文档头信息
 				.select().apis(RequestHandlerSelectors.basePackage("com.osxm.springbootjwt.controller")) // 过滤条件
 				.paths(PathSelectors.any()) // 过滤路径
-				.build().globalOperationParameters(pars);
+				.build().globalOperationParameters(pars).ignoredParameterTypes(ApiIgnore.class);
 	}
 
 	/**
